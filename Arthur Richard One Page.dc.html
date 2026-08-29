@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
+<script src="./zone-map.js"></script>
+<style>
+:root{
+  --noir:#1a1a19;
+  --gris-fonce:#333332;
+  --gris:#75746f;
+  --gris-clair:#f2f1ee;
+  --blanc:#ffffff;
+  --rouge:#d8202a;
+  --rouge-clair:#ec3b34;
+  --trait-clair:rgba(255,255,255,.16);
+  --trait-sombre:rgba(0,0,0,.12);
+  --cote:clamp(20px,6vw,92px);
+  --bloc:clamp(72px,10vw,148px);
+  --titre:'Saira Condensed','Arial Narrow',sans-serif;
+  --texte:'Inter Tight','Helvetica Neue',sans-serif;
+  --bardage:repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,rgba(255,255,255,0) 1px 3px,rgba(0,0,0,.22) 3px 4px,rgba(255,255,255,0) 4px 48px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--noir);color:var(--gris-fonce);font-family:var(--texte);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+a{color:var(--rouge);text-decoration:none}
+a:hover{color:var(--rouge-clair)}
+input,textarea,select,button{font:inherit;color:inherit}
+input[type=range]{accent-color:var(--rouge)}
+summary::-webkit-details-marker{display:none}
+summary::marker{content:''}
+details[open] span[data-plus]{transform:rotate(45deg)}
+@keyframes ar-cue{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(7px);opacity:1}}
+</style>
+</helmet>
+
+<template id="__bundler_thumbnail">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <rect width="100" height="100" fill="#1a1a19"/>
+    <rect x="30" y="30" width="40" height="6" fill="#d8202a" transform="skewX(-24)"/>
+    <text x="50" y="62" text-anchor="middle" font-family="Arial Narrow, sans-serif" font-weight="700" font-size="26" fill="#ffffff">AR</text>
+  </svg>
+</template>
+
+
+<div style="max-width:100%;overflow-x:hidden">
+
+<div style="position:relative;background:var(--noir)">
+  <header style="position:absolute;top:0;left:0;right:0;z-index:6;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:clamp(20px,2.8vw,38px) var(--cote) 0">
+    <a href="#hero" style="display:block;line-height:0">
+      <img src="assets/logo-ar-blanc.png" alt="Logo Entreprise Arthur Richard" style="display:block;height:clamp(52px,6vw,76px);width:auto">
+    </a>
+      <nav style="display:flex;align-items:center;gap:clamp(14px,2vw,30px);flex-wrap:wrap;justify-content:flex-end">
+        <a href="#services" style="flex:none;white-space:nowrap;font:500 12.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.78)" style-hover="color:var(--blanc)">Services</a>
+        <a href="#coverstyl" style="flex:none;white-space:nowrap;font:500 12.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.78)" style-hover="color:var(--blanc)">Cover Styl</a>
+        <a href="#realisations" style="flex:none;white-space:nowrap;font:500 12.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.78)" style-hover="color:var(--blanc)">Réalisations</a>
+        <a href="#zone" style="flex:none;white-space:nowrap;font:500 12.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.78)" style-hover="color:var(--blanc)">Zone</a>
+        <a href="tel:+33671526269" style="display:inline-flex;flex:none;white-space:nowrap;align-items:center;gap:9px;padding:11px 18px;border:1px solid rgba(255,255,255,.34);font:600 12.5px/1 var(--texte);letter-spacing:.13em;text-transform:uppercase;color:var(--blanc)" style-hover="background:var(--blanc);color:var(--noir);border-color:var(--blanc)">
+          <span style="width:7px;height:7px;background:var(--rouge);display:block"></span>
+          <span>06 71 52 62 69</span>
+        </a>
+      </nav>
+  </header>
+
+  <sc-if value="{{ heroEnseigne }}" hint-placeholder-val="{{ true }}">
+    <section id="hero" data-screen-label="Hero — enseigne" style="position:relative;min-height:100svh;overflow:hidden">
+      <img src="assets/logo-facade.png" alt="Enseigne Entreprise Arthur Richard — travaux de second œuvre" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 45%">
+      <div style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(12,12,11,.9) 0%,rgba(12,12,11,.62) 38%,rgba(12,12,11,.12) 72%),linear-gradient(to top,rgba(12,12,11,.82),rgba(12,12,11,0) 58%)"></div>
+      <div style="position:absolute;inset:0;background:var(--bardage);opacity:.5;mix-blend-mode:overlay"></div>
+      <div style="position:absolute;inset:clamp(10px,1.5vw,22px);border:1px solid rgba(255,255,255,.22);pointer-events:none"></div>
+      <div style="position:relative;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;min-height:100svh;padding:clamp(150px,18vw,230px) var(--cote) clamp(52px,7vw,84px)">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:clamp(18px,2.4vw,26px)">
+          <span style="display:block;width:44px;height:4px;background:var(--rouge);transform:skewX(-24deg)"></span>
+          <span style="font:600 12px/1 var(--texte);letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.72)">Entreprise Arthur Richard · Travaux de second œuvre</span>
+        </div>
+        <h1 style="margin:0;max-width:19ch;font-family:var(--titre);font-weight:700;font-size:clamp(50px,10.5vw,148px);line-height:.9;letter-spacing:-.005em;text-transform:uppercase;color:var(--blanc)">Redonnez vie<br>à vos espaces</h1>
+        <p style="margin:clamp(20px,2.6vw,30px) 0 0;max-width:46ch;font-size:clamp(15px,1.4vw,18px);font-weight:300;line-height:1.65;color:rgba(255,255,255,.76)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Peinture, revêtements, plâtrerie et finitions soignées, du premier coup de pinceau à la remise des clés.</p>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:clamp(28px,3.4vw,42px);justify-content:flex-start">
+        <a href="#contact" style="display:inline-flex;align-items:center;gap:14px;padding:18px 30px;background:var(--rouge);font:600 13px/1 var(--texte);letter-spacing:.15em;text-transform:uppercase;color:var(--blanc)" style-hover="background:var(--blanc);color:var(--noir)">
+          <span>Demander un devis</span>
+          <span style="font-family:var(--titre);font-size:17px;line-height:1">&#8594;</span>
+        </a>
+        <a href="#coverstyl" style="display:inline-flex;align-items:baseline;gap:12px;padding:18px 8px;font:500 13px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.82);border-bottom:1px solid rgba(255,255,255,.34)" style-hover="color:var(--blanc);border-color:var(--blanc)">
+          <span style="font-family:var(--titre);font-weight:700;color:var(--rouge)">07</span>
+          <span>Découvrir Cover Styl</span>
+        </a>
+      </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:clamp(38px,5vw,64px);font:500 11px/1 var(--texte);letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5)">
+          <span style="display:block;width:1px;height:34px;background:rgba(255,255,255,.4);animation:ar-cue 2.4s ease-in-out infinite"></span>
+          <span>Faire défiler</span>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ heroSplit }}">
+    <section id="hero" data-screen-label="Hero — split chantier" style="position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));min-height:100svh">
+      <div style="position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(160px,18vw,220px) clamp(24px,4vw,64px) clamp(48px,6vw,76px) var(--cote);background:var(--noir);overflow:hidden">
+        <div style="position:absolute;inset:0;background:var(--bardage);opacity:.9;pointer-events:none"></div>
+        <div style="position:absolute;right:0;top:0;bottom:0;width:6px;background:var(--rouge)"></div>
+        <div style="position:relative">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:clamp(18px,2.4vw,26px)">
+            <span style="display:block;width:44px;height:4px;background:var(--rouge);transform:skewX(-24deg)"></span>
+            <span style="font:600 12px/1 var(--texte);letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.72)">Travaux de second œuvre · Nièvre</span>
+          </div>
+          <h1 style="margin:0;max-width:14ch;font-family:var(--titre);font-weight:700;font-size:clamp(48px,7.6vw,116px);line-height:.88;text-transform:uppercase;color:var(--blanc)">Redonnez vie à vos espaces</h1>
+          <p style="margin:clamp(20px,2.6vw,30px) 0 0;max-width:44ch;font-size:clamp(15px,1.4vw,18px);font-weight:300;line-height:1.65;color:rgba(255,255,255,.76)">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:clamp(28px,3.4vw,42px);justify-content:flex-start">
+        <a href="#contact" style="display:inline-flex;align-items:center;gap:14px;padding:18px 30px;background:var(--rouge);font:600 13px/1 var(--texte);letter-spacing:.15em;text-transform:uppercase;color:var(--blanc)" style-hover="background:var(--blanc);color:var(--noir)">
+          <span>Demander un devis</span>
+          <span style="font-family:var(--titre);font-size:17px;line-height:1">&#8594;</span>
+        </a>
+        <a href="#coverstyl" style="display:inline-flex;align-items:baseline;gap:12px;padding:18px 8px;font:500 13px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.82);border-bottom:1px solid rgba(255,255,255,.34)" style-hover="color:var(--blanc);border-color:var(--blanc)">
+          <span style="font-family:var(--titre);font-weight:700;color:var(--rouge)">07</span>
+          <span>Découvrir Cover Styl</span>
+        </a>
+      </div>
+        </div>
+      </div>
+      <div style="position:relative;min-height:56svh;background:#232322"><image-slot id="hero-chantier" shape="rect" placeholder="Photo chantier — plein cadre"></image-slot></div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ heroCentre }}">
+    <section id="hero" data-screen-label="Hero — logo centré" style="position:relative;min-height:100svh;overflow:hidden">
+      <img src="assets/logo-facade.png" alt="Enseigne Entreprise Arthur Richard" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 45%;filter:grayscale(.35)">
+      <div style="position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 40%,rgba(12,12,11,.5) 0%,rgba(12,12,11,.9) 78%)"></div>
+      <div style="position:absolute;inset:0;background:var(--bardage);opacity:.55;mix-blend-mode:overlay"></div>
+      <div style="position:absolute;inset:clamp(10px,1.5vw,22px);border:1px solid rgba(255,255,255,.22);pointer-events:none"></div>
+      <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:100svh;padding:clamp(160px,18vw,220px) var(--cote) clamp(60px,7vw,90px)">
+        <img src="assets/logo-ar-blanc.png" alt="Entreprise Arthur Richard" style="display:block;width:min(400px,60vw);height:auto;margin-bottom:clamp(28px,3.6vw,44px)">
+        <h1 style="margin:0;max-width:24ch;font-family:var(--titre);font-weight:700;font-size:clamp(40px,7vw,104px);line-height:.9;text-transform:uppercase;color:var(--blanc)">Redonnez vie à vos espaces</h1>
+        <p style="margin:clamp(18px,2.4vw,28px) 0 0;max-width:52ch;font-size:clamp(15px,1.3vw,17px);font-weight:300;line-height:1.7;color:rgba(255,255,255,.74)">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:clamp(28px,3.4vw,42px);justify-content:center">
+        <a href="#contact" style="display:inline-flex;align-items:center;gap:14px;padding:18px 30px;background:var(--rouge);font:600 13px/1 var(--texte);letter-spacing:.15em;text-transform:uppercase;color:var(--blanc)" style-hover="background:var(--blanc);color:var(--noir)">
+          <span>Demander un devis</span>
+          <span style="font-family:var(--titre);font-size:17px;line-height:1">&#8594;</span>
+        </a>
+        <a href="#coverstyl" style="display:inline-flex;align-items:baseline;gap:12px;padding:18px 8px;font:500 13px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.82);border-bottom:1px solid rgba(255,255,255,.34)" style-hover="color:var(--blanc);border-color:var(--blanc)">
+          <span style="font-family:var(--titre);font-weight:700;color:var(--rouge)">07</span>
+          <span>Découvrir Cover Styl</span>
+        </a>
+      </div>
+      </div>
+    </section>
+  </sc-if>
+</div>
+
+<section id="services" data-screen-label="Services" style="background:var(--blanc);padding:var(--bloc) var(--cote)">
+  <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:28px;margin-bottom:clamp(40px,5vw,68px)">
+    <div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <span style="display:block;width:34px;height:3px;background:var(--rouge);transform:skewX(-24deg)"></span>
+        <span style="font:600 11.5px/1 var(--texte);letter-spacing:.24em;text-transform:uppercase;color:var(--rouge)">Nos services</span>
+      </div>
+      <h2 style="margin:0;max-width:22ch;font-family:var(--titre);font-weight:700;font-size:clamp(34px,5.4vw,72px);line-height:.94;text-transform:uppercase;color:var(--noir)">Sept métiers, un seul interlocuteur</h2>
+    </div>
+    <p style="margin:0;max-width:38ch;font-size:15px;font-weight:300;line-height:1.7;color:var(--gris)">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+  </div>
+
+  <div style="display:flex;flex-direction:column">
+    <a href="service-peinture-interieure.dc.html" style="display:grid;grid-template-columns:clamp(52px,6vw,104px) 1fr auto;gap:clamp(14px,3vw,44px);align-items:center;padding:clamp(22px,3vw,32px) clamp(8px,1.4vw,18px);border-top:1px solid var(--trait-sombre);color:var(--gris-fonce)" style-hover="background:var(--gris-clair);color:var(--noir)">
+      <span style="font-family:var(--titre);font-weight:700;font-size:clamp(16px,1.6vw,22px);letter-spacing:.08em;color:var(--rouge)">01</span>
+      <span style="display:grid;gap:7px">
+        <span style="font-family:var(--titre);font-weight:700;font-size:clamp(26px,3.6vw,46px);line-height:1;text-transform:uppercase;color:inherit">Peinture intérieure</span>
+        <span style="max-width:56ch;font-size:14.5px;font-weight:300;line-height:1.6;color:var(--gris)">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.</span>
+      </span>
+      <span style="font-family:var(--titre);font-size:clamp(18px,2vw,26px);line-height:1;color:inherit;opacity:.45">&#8594;</span>
+    </a>
+    <a href="service-peinture-exterieure-ravalement.dc.html" style="display:grid;grid-template-columns:clamp(52px,6vw,104px) 1fr auto;gap:clamp(14px,3vw,44px);align-items:center;padding:clamp(22px,3vw,32px) clamp(8px,1.4vw,18px);border-top:1px solid var(--trait-sombre);color:var(--gris-fonce)" style-hover="background:var(--gris-clair);color:var(--noir)">
+      <span style="font-family:var(--titre);font-weight:700;font-size:clamp(16px,1.6vw,22px);letter-spacing:.08em;color:var(--rouge)">02</span>
+      <span style="display:grid;gap:7px">
+        <span style="font-family:var(--titre);font-weight:700;font-size:clamp(26px,3.6vw,46px);line-height:1;text-transform:uppercase;color:inherit">Peinture extérieure / ravalement</span>
+        <span style="max-width:56ch;font-size:14.5px;font-weight:300;line-height:1.6;color:var(--gris)">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.</span>
+      </span>
+      <span style="font-family:var(--titre);font-size:clamp(18px,2vw,26px);line-height:1;color:inherit;opacity:.45">&#8594;</span>
+    </a>
+    <a href="service-revetements-sols-murs.dc.html" style="display:grid;grid-template-columns:clamp(52px,6vw,104px) 1fr auto;gap:clamp(14px,3vw,44px);align-items:center;padding:clamp(22px,3vw,32px) clamp(8px,1.4vw,18px);border-top:1px solid var(--trait-sombre);color:var(--gris-fonce)" style-hover="background:var(--gris-clair);color:var(--noir)">
+      <span style="font-family:var(--titre);font-weight:700;font-size:clamp(16px,1.6vw,22px);letter-spacing:.08em;color:var(--rouge)">03</span>
+      <span style="display:grid;gap:7px">
+        <span style="font-family:var(--titre);font-weight:700;font-size:clamp(26px,3.6vw,46px);line-height:1;text-transform:uppercase;color:inherit">Pose de revêtements sols et murs</span>
+        <span style="max-width:56ch;font-size:14.5px;font-weight:300;line-height:1.6;color:var(--gris)">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.</span>
+      </span>
+      <span style="font-family:var(--titre);font-size:clamp(18px,2vw,26px);line-height:1;color:inherit;opacity:.45">&#8594;</span>
+    </a>
+    <a href="service-platrerie-seche.dc.html" style="display:grid;grid-template-columns:clamp(52px,6vw,104px) 1fr auto;gap:clamp(14px,3vw,44px);align-items:center;padding:clamp(22px,3vw,32px) clamp(8px,1.4vw,18px);border-top:1px solid var(--trait-sombre);color:var(--gris-fonce)" style-hover="background:var(--gris-clair);color:var(--noir)">
+      <span style="font-family:var(--titre);font-weight:700;font-size:clamp(16px,1.6vw,22px);letter-spacing:.08em;color:var(--rouge)">04</span>
+      <span style="display:grid;gap:7px">
+        <span style="font-family:var(--titre);font-weight:700;font-size:clamp(26px,3.6vw,46px);line-height:1;text-transform:uppercase;color:inherit">Plâtrerie sèche</span>
+        <span style="max-width:56ch;font-size:14.5px;font-weight:300;line-height:1.6;color:var(--gris)">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.</span>
+      </span>
+      <span style="font-family:var(--titre);font-size:clamp(18px,2vw,26px);line-height:1;color:inherit;opacity:.45">&#8594;</span>
+    </a>
+    <a href="service-isolation-interieure.dc.html" style="display:grid;grid-template-columns:clamp(52px,6vw,104px) 1fr auto;gap:clamp(14px,3vw,44px);align-items:center;padding:clamp(22px,3vw,32px) clamp(8px,1.4vw,18px);border-top:1px solid var(--trait-sombre);color:var(--gris-fonce)" style-hover="background:var(--gris-clair);color:var(--noir)">
+      <span style="font-family:var(--titre);font-weight:700;font-size:clamp(16px,1.6vw,22px);letter-spacing:.08em;color:var(--rouge)">05</span>
+      <span style="display:grid;gap:7px">
+        <span style="font-family:var(--titre);font-weight:700;font-size:clamp(26px,3.6vw,46px);line-height:1;text-transform:uppercase;color:inherit">Isolation intérieure</span>
+        <span style="max-width:56ch;font-size:14.5px;font-weight:300;line-height:1.6;color:var(--gris)">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.</span>
+      </span>
+      <span style="font-family:var(--titre);font-size:clamp(18px,2vw,26px);line-height:1;color:inherit;opacity:.45">&#8594;</span>
+    </a>
+    <a href="service-salle-de-bain-cle-en-main.dc.html" style="display:grid;grid-template-columns:clamp(52px,6vw,104px) 1fr auto;gap:clamp(14px,3vw,44px);align-items:center;padding:clamp(22px,3vw,32px) clamp(8px,1.4vw,18px);border-top:1px solid var(--trait-sombre);border-bottom:1px solid var(--trait-sombre);color:var(--gris-fonce)" style-hover="background:var(--gris-clair);color:var(--noir)">
+      <span style="font-family:var(--titre);font-weight:700;font-size:clamp(16px,1.6vw,22px);letter-spacing:.08em;color:var(--rouge)">06</span>
+      <span style="display:grid;gap:7px">
+        <span style="font-family:var(--titre);font-weight:700;font-size:clamp(26px,3.6vw,46px);line-height:1;text-transform:uppercase;color:inherit">Salle de bain clé en main</span>
+        <span style="max-width:56ch;font-size:14.5px;font-weight:300;line-height:1.6;color:var(--gris)">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.</span>
+      </span>
+      <span style="font-family:var(--titre);font-size:clamp(18px,2vw,26px);line-height:1;color:inherit;opacity:.45">&#8594;</span>
+    </a>
+  </div>
+
+  <a href="service-cover-styl.dc.html" style="position:relative;display:grid;grid-template-columns:clamp(52px,6vw,104px) 1fr auto;gap:clamp(14px,3vw,44px);align-items:center;overflow:hidden;margin-top:clamp(22px,3vw,34px);padding:clamp(28px,4vw,48px) clamp(20px,2.6vw,36px);background:var(--rouge);color:var(--blanc)" style-hover="background:var(--noir)">
+    <span style="position:absolute;inset:0;background:var(--bardage);opacity:.35;pointer-events:none"></span>
+    <span style="position:relative;font-family:var(--titre);font-weight:700;font-size:clamp(16px,1.6vw,22px);letter-spacing:.08em;color:rgba(255,255,255,.8)">07</span>
+    <span style="position:relative;display:grid;gap:10px">
+      <span style="display:inline-flex;align-items:center;gap:9px;font:600 11px/1 var(--texte);letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.85)">
+        <span style="display:block;width:22px;height:3px;background:var(--blanc);transform:skewX(-24deg)"></span>
+        <span>Service signature</span>
+      </span>
+      <span style="font-family:var(--titre);font-weight:700;font-size:clamp(32px,5vw,64px);line-height:.96;text-transform:uppercase">Cover Styl</span>
+      <span style="max-width:58ch;font-size:15px;font-weight:300;line-height:1.6;color:rgba(255,255,255,.86)">Film adhésif haute performance : meubles, faïence, cuisine, plan de travail, escaliers. Rénovation sans démolition.</span>
+    </span>
+    <span style="position:relative;font-family:var(--titre);font-size:clamp(22px,2.6vw,34px);line-height:1">&#8594;</span>
+  </a>
+</section>
+
+<section id="coverstyl" data-screen-label="Cover Styl" style="position:relative;background:var(--noir);padding:var(--bloc) var(--cote);color:var(--blanc);overflow:hidden">
+  <div style="position:absolute;inset:0;background:var(--bardage);opacity:.9;pointer-events:none"></div>
+  <div style="position:relative">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(32px,5vw,72px);align-items:end;margin-bottom:clamp(44px,5.5vw,76px)">
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+          <span style="display:block;width:34px;height:3px;background:var(--rouge);transform:skewX(-24deg)"></span>
+          <span style="font:600 11.5px/1 var(--texte);letter-spacing:.24em;text-transform:uppercase;color:var(--rouge-clair)">07 · Le service qui change tout</span>
+        </div>
+        <h2 style="margin:0;max-width:20ch;font-family:var(--titre);font-weight:700;font-size:clamp(36px,6vw,84px);line-height:.92;text-transform:uppercase">Rénover sans rien casser</h2>
+        <div style="display:inline-flex;align-items:center;gap:11px;margin-top:clamp(24px,3vw,34px);padding:11px 18px;border:1px solid rgba(255,255,255,.28)">
+          <span style="display:block;width:8px;height:8px;background:var(--rouge);border-radius:50%"></span>
+          <span style="font:600 11.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--blanc)">Certifié Cover Styl</span>
+        </div>
+      </div>
+      <div style="display:grid;gap:22px">
+        <p style="margin:0;font-size:clamp(15px,1.4vw,17px);font-weight:300;line-height:1.7;color:rgba(255,255,255,.78)">Cover Styl est un revêtement adhésif qui s'applique sur presque tous les supports : bois, stratifié, métal, verre, carrelage. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:20px;padding-top:22px;border-top:1px solid var(--trait-clair)">
+          <div>
+            <div style="font-family:var(--titre);font-weight:700;font-size:clamp(28px,3vw,40px);line-height:1;color:var(--blanc)">400+</div>
+            <div style="margin-top:6px;font:500 11px/1.4 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55)">Finitions au choix</div>
+          </div>
+          <div>
+            <div style="font-family:var(--titre);font-weight:700;font-size:clamp(28px,3vw,40px);line-height:1;color:var(--blanc)">2 jours</div>
+            <div style="margin-top:6px;font:500 11px/1.4 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55)">Chantier moyen</div>
+          </div>
+          <div>
+            <div style="font-family:var(--titre);font-weight:700;font-size:clamp(28px,3vw,40px);line-height:1;color:var(--blanc)">0</div>
+            <div style="margin-top:6px;font:500 11px/1.4 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55)">Démolition</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:clamp(14px,1.6vw,22px)">
+      <figure style="margin:0">
+        <div style="position:relative;aspect-ratio:4/5;background:#232322"><image-slot id="cs-meubles" shape="rect" placeholder="Photo — meuble rénové"></image-slot></div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:15px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:clamp(18px,1.8vw,24px);text-transform:uppercase;letter-spacing:.01em">Sur vos meubles</span>
+          <span style="font:500 11px/1 var(--texte);letter-spacing:.16em;color:var(--rouge-clair)">01</span>
+        </figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div style="position:relative;aspect-ratio:4/5;background:#232322"><image-slot id="cs-faience" shape="rect" placeholder="Photo — faïence recouverte"></image-slot></div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:15px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:clamp(18px,1.8vw,24px);text-transform:uppercase;letter-spacing:.01em">Sur votre faïence</span>
+          <span style="font:500 11px/1 var(--texte);letter-spacing:.16em;color:var(--rouge-clair)">02</span>
+        </figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div style="position:relative;aspect-ratio:4/5;background:#232322"><image-slot id="cs-cuisine" shape="rect" placeholder="Photo — façades de cuisine"></image-slot></div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:15px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:clamp(18px,1.8vw,24px);text-transform:uppercase;letter-spacing:.01em">Sur votre cuisine</span>
+          <span style="font:500 11px/1 var(--texte);letter-spacing:.16em;color:var(--rouge-clair)">03</span>
+        </figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div style="position:relative;aspect-ratio:4/5;background:#232322"><image-slot id="cs-plan" shape="rect" placeholder="Photo — plan de travail"></image-slot></div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:15px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:clamp(18px,1.8vw,24px);text-transform:uppercase;letter-spacing:.01em">Sur votre plan de travail</span>
+          <span style="font:500 11px/1 var(--texte);letter-spacing:.16em;color:var(--rouge-clair)">04</span>
+        </figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div style="position:relative;aspect-ratio:4/5;background:#232322"><image-slot id="cs-escaliers" shape="rect" placeholder="Photo — escalier habillé"></image-slot></div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:15px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:clamp(18px,1.8vw,24px);text-transform:uppercase;letter-spacing:.01em">Sur vos escaliers</span>
+          <span style="font:500 11px/1 var(--texte);letter-spacing:.16em;color:var(--rouge-clair)">05</span>
+        </figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div style="position:relative;aspect-ratio:4/5;background:#232322"><image-slot id="cs-sdb" shape="rect" placeholder="Photo — salle de bain"></image-slot></div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:15px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:clamp(18px,1.8vw,24px);text-transform:uppercase;letter-spacing:.01em">Sur votre salle de bain</span>
+          <span style="font:500 11px/1 var(--texte);letter-spacing:.16em;color:var(--rouge-clair)">06</span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:clamp(36px,4.5vw,58px)">
+      <a href="#contact" style="display:inline-flex;align-items:center;gap:14px;padding:18px 30px;background:var(--rouge);font:600 13px/1 var(--texte);letter-spacing:.15em;text-transform:uppercase;color:var(--blanc)" style-hover="background:var(--blanc);color:var(--noir)">
+        <span>Devis Cover Styl</span>
+        <span style="font-family:var(--titre);font-size:17px;line-height:1">&#8594;</span>
+      </a>
+      <span style="max-width:34ch;font-size:13.5px;font-weight:300;line-height:1.6;color:rgba(255,255,255,.55)">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+    </div>
+  </div>
+</section>
+
+<section id="entreprise" data-screen-label="Entreprise" style="background:var(--gris-clair);padding:var(--bloc) var(--cote)">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(34px,5vw,80px);align-items:center">
+    <div style="position:relative">
+      <div style="position:relative;aspect-ratio:4/5;background:#ddd9d3"><image-slot id="ent-portrait" shape="rect" placeholder="Photo — Arthur sur chantier"></image-slot></div>
+      <div style="position:absolute;left:-10px;bottom:clamp(20px,4vw,42px);display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--rouge);color:var(--blanc)">
+        <span style="font-family:var(--titre);font-weight:700;font-size:30px;line-height:1">10</span>
+        <span style="font:500 11px/1.3 var(--texte);letter-spacing:.15em;text-transform:uppercase">ans<br>d'expérience</span>
+      </div>
+    </div>
+    <div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <span style="display:block;width:34px;height:3px;background:var(--rouge);transform:skewX(-24deg)"></span>
+        <span style="font:600 11.5px/1 var(--texte);letter-spacing:.24em;text-transform:uppercase;color:var(--rouge)">L'entreprise</span>
+      </div>
+      <h2 style="margin:0;max-width:20ch;font-family:var(--titre);font-weight:700;font-size:clamp(32px,4.8vw,64px);line-height:.94;text-transform:uppercase;color:var(--noir)">Un artisan, pas un intermédiaire</h2>
+      <p style="margin:clamp(20px,2.4vw,28px) 0 0;max-width:50ch;font-size:clamp(15px,1.3vw,17px);font-weight:300;line-height:1.75;color:var(--gris-fonce)">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:clamp(18px,2.4vw,30px);margin-top:clamp(30px,3.6vw,44px)">
+        <div style="padding-top:20px;border-top:2px solid var(--noir)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--rouge)" stroke-width="1.6" style="display:block;width:26px;height:26px;margin-bottom:14px"><path d="M12 3l7 3v5.5c0 4-3 7.3-7 8.5-4-1.2-7-4.5-7-8.5V6l7-3z"></path><path d="M9 12l2.2 2.2L15.5 10"></path></svg>
+          <div style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Travail garanti</div>
+          <p style="margin:8px 0 0;font-size:13.5px;font-weight:300;line-height:1.6;color:var(--gris)">Lorem ipsum dolor sit amet consectetur.</p>
+        </div>
+        <div style="padding-top:20px;border-top:2px solid var(--noir)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--rouge)" stroke-width="1.6" style="display:block;width:26px;height:26px;margin-bottom:14px"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3.2 2"></path></svg>
+          <div style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Délais tenus</div>
+          <p style="margin:8px 0 0;font-size:13.5px;font-weight:300;line-height:1.6;color:var(--gris)">Lorem ipsum dolor sit amet consectetur.</p>
+        </div>
+        <div style="padding-top:20px;border-top:2px solid var(--noir)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--rouge)" stroke-width="1.6" style="display:block;width:26px;height:26px;margin-bottom:14px"><path d="M4 20l3.5-9 6 6L4 20z"></path><path d="M11 12l7.5-7.5a1.8 1.8 0 012.5 2.5L13.5 14.5"></path></svg>
+          <div style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Finitions soignées</div>
+          <p style="margin:8px 0 0;font-size:13.5px;font-weight:300;line-height:1.6;color:var(--gris)">Lorem ipsum dolor sit amet consectetur.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="realisations" data-screen-label="Réalisations" style="background:var(--blanc);padding:var(--bloc) var(--cote)">
+  <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:26px;margin-bottom:clamp(30px,4vw,48px)">
+    <div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <span style="display:block;width:34px;height:3px;background:var(--rouge);transform:skewX(-24deg)"></span>
+        <span style="font:600 11.5px/1 var(--texte);letter-spacing:.24em;text-transform:uppercase;color:var(--rouge)">Réalisations</span>
+      </div>
+      <h2 style="margin:0;font-family:var(--titre);font-weight:700;font-size:clamp(34px,5.4vw,72px);line-height:.94;text-transform:uppercase;color:var(--noir)">Avant / après</h2>
+    </div>
+    <p style="margin:0;max-width:36ch;font-size:15px;font-weight:300;line-height:1.7;color:var(--gris)">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt.</p>
+  </div>
+
+  <sc-if value="{{ avantApres }}" hint-placeholder-val="{{ true }}">
+    <div id="ar-ba" style="position:relative;aspect-ratio:16/9;min-height:260px;margin-bottom:clamp(34px,4vw,52px);background:#e6e2dd;overflow:hidden;user-select:none">
+      <div style="position:absolute;inset:0"><image-slot id="ba-avant" shape="rect" placeholder="Photo AVANT"></image-slot></div>
+      <div id="ar-ba-after" style="position:absolute;inset:0;clip-path:inset(0 50% 0 0)"><image-slot id="ba-apres" shape="rect" placeholder="Photo APRÈS"></image-slot></div>
+      <span style="position:absolute;left:16px;top:16px;padding:8px 13px;background:rgba(15,15,14,.72);font:600 10.5px/1 var(--texte);letter-spacing:.2em;text-transform:uppercase;color:#fff;pointer-events:none">Avant</span>
+      <span style="position:absolute;right:16px;top:16px;padding:8px 13px;background:var(--rouge);font:600 10.5px/1 var(--texte);letter-spacing:.2em;text-transform:uppercase;color:#fff;pointer-events:none">Après</span>
+      <span id="ar-ba-line" style="position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--blanc);box-shadow:0 0 0 1px rgba(0,0,0,.15);pointer-events:none"></span>
+      <input id="ar-ba-range" type="range" min="0" max="100" value="50" aria-label="Comparer avant et après" style="position:absolute;left:6%;right:6%;bottom:18px;width:88%;cursor:ew-resize">
+    </div>
+  </sc-if>
+
+  <div id="galerie">
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:clamp(20px,2.6vw,30px)">
+      <button type="button" data-chip="tous" style="padding:12px 18px;border:1px solid var(--noir);background:var(--noir);font:600 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--blanc);cursor:pointer">Tous</button>
+      <button type="button" data-chip="interieur" style="padding:12px 18px;border:1px solid var(--trait-sombre);background:transparent;font:600 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--gris-fonce);cursor:pointer">Peinture intérieure</button>
+      <button type="button" data-chip="exterieur" style="padding:12px 18px;border:1px solid var(--trait-sombre);background:transparent;font:600 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--gris-fonce);cursor:pointer">Extérieur</button>
+      <button type="button" data-chip="revetements" style="padding:12px 18px;border:1px solid var(--trait-sombre);background:transparent;font:600 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--gris-fonce);cursor:pointer">Revêtements</button>
+      <button type="button" data-chip="sdb" style="padding:12px 18px;border:1px solid var(--trait-sombre);background:transparent;font:600 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--gris-fonce);cursor:pointer">Salle de bain</button>
+      <button type="button" data-chip="coverstyl" style="padding:12px 18px;border:1px solid var(--trait-sombre);background:transparent;font:600 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--gris-fonce);cursor:pointer">Cover Styl</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:clamp(14px,1.6vw,22px)">
+      <figure data-cat="interieur" style="margin:0">
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd"><image-slot id="g1" shape="rect" placeholder="Photo chantier"></image-slot></div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Séjour, Nevers</span>
+          <span style="font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Intérieur</span>
+        </figcaption>
+      </figure>
+      <figure data-cat="coverstyl" style="margin:0">
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd"><image-slot id="g2" shape="rect" placeholder="Photo chantier"></image-slot></div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Cuisine relookée</span>
+          <span style="font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Cover Styl</span>
+        </figcaption>
+      </figure>
+      <figure data-cat="sdb" style="margin:0">
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd"><image-slot id="g3" shape="rect" placeholder="Photo chantier"></image-slot></div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Salle de bain complète</span>
+          <span style="font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Salle de bain</span>
+        </figcaption>
+      </figure>
+      <figure data-cat="exterieur" style="margin:0">
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd"><image-slot id="g4" shape="rect" placeholder="Photo chantier"></image-slot></div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Façade pavillon</span>
+          <span style="font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Extérieur</span>
+        </figcaption>
+      </figure>
+      <figure data-cat="revetements" style="margin:0">
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd"><image-slot id="g5" shape="rect" placeholder="Photo chantier"></image-slot></div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Sol stratifié</span>
+          <span style="font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Revêtements</span>
+        </figcaption>
+      </figure>
+      <figure data-cat="interieur" style="margin:0">
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd"><image-slot id="g6" shape="rect" placeholder="Photo chantier"></image-slot></div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Cage d'escalier</span>
+          <span style="font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Intérieur</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="avis" data-screen-label="Témoignages" style="background:var(--gris-clair);padding:var(--bloc) var(--cote)">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+    <span style="display:block;width:34px;height:3px;background:var(--rouge);transform:skewX(-24deg)"></span>
+    <span style="font:600 11.5px/1 var(--texte);letter-spacing:.24em;text-transform:uppercase;color:var(--rouge)">Ils nous ont fait confiance</span>
+  </div>
+  <h2 style="margin:0 0 clamp(34px,4.4vw,56px);max-width:24ch;font-family:var(--titre);font-weight:700;font-size:clamp(32px,5vw,66px);line-height:.94;text-transform:uppercase;color:var(--noir)">Ce que disent les clients</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(14px,1.8vw,24px)">
+    <blockquote style="display:flex;flex-direction:column;gap:20px;margin:0;padding:clamp(26px,3vw,38px);background:var(--blanc);border-top:3px solid var(--rouge)">
+      <span style="font:500 13px/1 var(--texte);letter-spacing:.28em;color:var(--rouge)">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.7;color:var(--gris-fonce)">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua veniam quis.</p>
+      <footer style="margin-top:auto;padding-top:18px;border-top:1px solid var(--trait-sombre)">
+        <div style="font-family:var(--titre);font-weight:600;font-size:18px;text-transform:uppercase;color:var(--noir)">Claire M.</div>
+        <div style="font:400 12px/1.4 var(--texte);letter-spacing:.1em;text-transform:uppercase;color:var(--gris)">Peinture intérieure · Nevers</div>
+      </footer>
+    </blockquote>
+    <blockquote style="display:flex;flex-direction:column;gap:20px;margin:0;padding:clamp(26px,3vw,38px);background:var(--blanc);border-top:3px solid var(--rouge)">
+      <span style="font:500 13px/1 var(--texte);letter-spacing:.28em;color:var(--rouge)">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.7;color:var(--gris-fonce)">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <footer style="margin-top:auto;padding-top:18px;border-top:1px solid var(--trait-sombre)">
+        <div style="font-family:var(--titre);font-weight:600;font-size:18px;text-transform:uppercase;color:var(--noir)">Julien D.</div>
+        <div style="font:400 12px/1.4 var(--texte);letter-spacing:.1em;text-transform:uppercase;color:var(--gris)">Cover Styl cuisine · Bourges</div>
+      </footer>
+    </blockquote>
+    <blockquote style="display:flex;flex-direction:column;gap:20px;margin:0;padding:clamp(26px,3vw,38px);background:var(--blanc);border-top:3px solid var(--rouge)">
+      <span style="font:500 13px/1 var(--texte);letter-spacing:.28em;color:var(--rouge)">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <p style="margin:0;font-size:16px;font-weight:300;line-height:1.7;color:var(--gris-fonce)">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim.</p>
+      <footer style="margin-top:auto;padding-top:18px;border-top:1px solid var(--trait-sombre)">
+        <div style="font-family:var(--titre);font-weight:600;font-size:18px;text-transform:uppercase;color:var(--noir)">Sophie L.</div>
+        <div style="font:400 12px/1.4 var(--texte);letter-spacing:.1em;text-transform:uppercase;color:var(--gris)">Salle de bain · Moulins</div>
+      </footer>
+    </blockquote>
+  </div>
+</section>
+
+<section id="zone" data-screen-label="Zone d'intervention" style="background:var(--blanc);padding:var(--bloc) var(--cote)">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(32px,4.6vw,72px);align-items:center">
+    <div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <span style="display:block;width:34px;height:3px;background:var(--rouge);transform:skewX(-24deg)"></span>
+        <span style="font:600 11.5px/1 var(--texte);letter-spacing:.24em;text-transform:uppercase;color:var(--rouge)">Zone d'intervention</span>
+      </div>
+      <h2 style="margin:0;max-width:20ch;font-family:var(--titre);font-weight:700;font-size:clamp(32px,5vw,66px);line-height:.94;text-transform:uppercase;color:var(--noir)">Nevers et 70 km alentour</h2>
+      <p style="margin:clamp(18px,2.4vw,28px) 0 0;max-width:46ch;font-size:15.5px;font-weight:300;line-height:1.75;color:var(--gris-fonce)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Déplacement gratuit pour la visite technique et le chiffrage dans le rayon indiqué.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:9px;margin-top:clamp(24px,3vw,34px)">
+        <span style="padding:10px 15px;border:1px solid var(--trait-sombre);font:600 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--gris-fonce)">Nevers</span>
+        <span style="padding:10px 15px;border:1px solid var(--trait-sombre);font:600 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--gris-fonce)">Bourges</span>
+        <span style="padding:10px 15px;border:1px solid var(--trait-sombre);font:600 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--gris-fonce)">Moulins</span>
+        <span style="padding:10px 15px;border:1px solid var(--trait-sombre);font:600 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--gris-fonce)">Cosne-sur-Loire</span>
+        <span style="padding:10px 15px;border:1px solid var(--trait-sombre);font:600 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--gris-fonce)">Decize</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:11px;margin-top:clamp(22px,2.6vw,30px);font:400 12.5px/1.5 var(--texte);color:var(--gris)">
+        <span style="display:block;flex:none;width:14px;height:14px;border-radius:50%;background:rgba(216,32,42,.18);border:2px solid var(--rouge)"></span>
+        <span>Rayon de 70 km autour de Nevers.</span>
+      </div>
+    </div>
+    <div style="position:relative;aspect-ratio:4/3;min-height:300px;background:#e8e6e2;border:1px solid var(--trait-sombre)">
+      <zone-map lat="46.9896" lng="3.1590" rayon="70" zoom="8" data-villes="Nevers:46.9896:3.1590|Bourges:47.0810:2.3988|Moulins:46.5646:3.3327|Cosne-Cours-sur-Loire:47.4111:2.9269|Decize:46.8286:3.4622"></zone-map>
+    </div>
+  </div>
+</section>
+
+<section id="faq" data-screen-label="FAQ" style="background:var(--gris-clair);padding:var(--bloc) var(--cote)">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(30px,4.4vw,72px);align-items:start">
+    <div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <span style="display:block;width:34px;height:3px;background:var(--rouge);transform:skewX(-24deg)"></span>
+        <span style="font:600 11.5px/1 var(--texte);letter-spacing:.24em;text-transform:uppercase;color:var(--rouge)">FAQ devis</span>
+      </div>
+      <h2 style="margin:0;max-width:16ch;font-family:var(--titre);font-weight:700;font-size:clamp(32px,5vw,66px);line-height:.94;text-transform:uppercase;color:var(--noir)">Questions fréquentes</h2>
+      <a href="#contact" style="display:inline-flex;align-items:center;gap:12px;margin-top:clamp(24px,3vw,34px);padding:16px 24px;border:1px solid var(--noir);font:600 12.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--noir)" style-hover="background:var(--noir);color:var(--blanc)">
+        <span>Une autre question ?</span>
+        <span style="font-family:var(--titre);font-size:16px;line-height:1">&#8594;</span>
+      </a>
+    </div>
+    <div>
+      <details style="border-top:1px solid var(--trait-sombre)">
+        <summary style="display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 2px;list-style:none;cursor:pointer;font-family:var(--titre);font-weight:600;font-size:clamp(19px,2vw,26px);text-transform:uppercase;color:var(--noir)">
+          <span>Le devis est-il gratuit ?</span>
+          <span data-plus="1" style="display:block;flex:none;font-family:var(--titre);font-weight:600;font-size:24px;line-height:1;color:var(--rouge);transition:transform .2s ease">+</span>
+        </summary>
+        <p style="margin:0;padding:0 2px 24px;max-width:60ch;font-size:15px;font-weight:300;line-height:1.7;color:var(--gris-fonce)">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </details>
+      <details style="border-top:1px solid var(--trait-sombre)">
+        <summary style="display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 2px;list-style:none;cursor:pointer;font-family:var(--titre);font-weight:600;font-size:clamp(19px,2vw,26px);text-transform:uppercase;color:var(--noir)">
+          <span>Quel délai avant le début du chantier ?</span>
+          <span data-plus="1" style="display:block;flex:none;font-family:var(--titre);font-weight:600;font-size:24px;line-height:1;color:var(--rouge);transition:transform .2s ease">+</span>
+        </summary>
+        <p style="margin:0;padding:0 2px 24px;max-width:60ch;font-size:15px;font-weight:300;line-height:1.7;color:var(--gris-fonce)">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </details>
+      <details style="border-top:1px solid var(--trait-sombre)">
+        <summary style="display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 2px;list-style:none;cursor:pointer;font-family:var(--titre);font-weight:600;font-size:clamp(19px,2vw,26px);text-transform:uppercase;color:var(--noir)">
+          <span>Le Cover Styl tient-il dans une salle de bain ?</span>
+          <span data-plus="1" style="display:block;flex:none;font-family:var(--titre);font-weight:600;font-size:24px;line-height:1;color:var(--rouge);transition:transform .2s ease">+</span>
+        </summary>
+        <p style="margin:0;padding:0 2px 24px;max-width:60ch;font-size:15px;font-weight:300;line-height:1.7;color:var(--gris-fonce)">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </details>
+      <details style="border-top:1px solid var(--trait-sombre)">
+        <summary style="display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 2px;list-style:none;cursor:pointer;font-family:var(--titre);font-weight:600;font-size:clamp(19px,2vw,26px);text-transform:uppercase;color:var(--noir)">
+          <span>Faut-il vider la pièce avant votre passage ?</span>
+          <span data-plus="1" style="display:block;flex:none;font-family:var(--titre);font-weight:600;font-size:24px;line-height:1;color:var(--rouge);transition:transform .2s ease">+</span>
+        </summary>
+        <p style="margin:0;padding:0 2px 24px;max-width:60ch;font-size:15px;font-weight:300;line-height:1.7;color:var(--gris-fonce)">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </details>
+      <details style="border-top:1px solid var(--trait-sombre);border-bottom:1px solid var(--trait-sombre)">
+        <summary style="display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 2px;list-style:none;cursor:pointer;font-family:var(--titre);font-weight:600;font-size:clamp(19px,2vw,26px);text-transform:uppercase;color:var(--noir)">
+          <span>Quels moyens de paiement acceptez-vous ?</span>
+          <span data-plus="1" style="display:block;flex:none;font-family:var(--titre);font-weight:600;font-size:24px;line-height:1;color:var(--rouge);transition:transform .2s ease">+</span>
+        </summary>
+        <p style="margin:0;padding:0 2px 24px;max-width:60ch;font-size:15px;font-weight:300;line-height:1.7;color:var(--gris-fonce)">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section id="contact" data-screen-label="Contact" style="position:relative;background:var(--noir);padding:var(--bloc) var(--cote) clamp(40px,5vw,64px);color:var(--blanc);overflow:hidden">
+  <div style="position:absolute;inset:0;background:var(--bardage);opacity:.9;pointer-events:none"></div>
+  <div style="position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(38px,5vw,84px)">
+    <div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <span style="display:block;width:34px;height:3px;background:var(--rouge);transform:skewX(-24deg)"></span>
+        <span style="font:600 11.5px/1 var(--texte);letter-spacing:.24em;text-transform:uppercase;color:var(--rouge-clair)">Contact</span>
+      </div>
+      <h2 style="margin:0;max-width:16ch;font-family:var(--titre);font-weight:700;font-size:clamp(36px,6vw,86px);line-height:.9;text-transform:uppercase">Parlons de votre chantier</h2>
+      <a href="tel:+33671526269" style="display:block;margin-top:clamp(26px,3.4vw,40px);font-family:var(--titre);font-weight:700;font-size:clamp(30px,4.4vw,56px);line-height:1;letter-spacing:.01em;color:var(--blanc)" style-hover="color:var(--rouge-clair)">06 71 52 62 69</a>
+      <div style="margin-top:14px;font-size:14.5px;font-weight:300;line-height:1.8;color:rgba(255,255,255,.65)">
+        <div>contact.entreprise.richard@gmail.com</div>
+        <div>Zone d'intervention : Nevers &amp; 70 km alentour</div>
+        <div>Lun – Sam · 08h00 – 19h00</div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:clamp(26px,3vw,36px)">
+        <a href="https://www.instagram.com/entreprise_arichard" target="_blank" rel="noopener" aria-label="Instagram" style="display:grid;place-items:center;width:48px;height:48px;border:1px solid rgba(255,255,255,.28);color:var(--blanc)" style-hover="background:var(--rouge);border-color:var(--rouge)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:20px;height:20px"><rect x="4" y="4" width="16" height="16" rx="4.5"></rect><circle cx="12" cy="12" r="3.6"></circle><circle cx="17" cy="7" r=".9" fill="currentColor" stroke="none"></circle></svg>
+        </a>
+        <a href="#" aria-label="Facebook" style="display:grid;place-items:center;width:48px;height:48px;border:1px solid rgba(255,255,255,.28);color:var(--blanc)" style-hover="background:var(--rouge);border-color:var(--rouge)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:20px;height:20px"><path d="M14.6 7.5h2V4.6h-2.4c-2 0-3.4 1.3-3.4 3.4v1.9H8.9v2.9h1.9V20h3v-7.2h2.2l.4-2.9h-2.6V8.6c0-.7.3-1.1.8-1.1z" fill="currentColor" stroke="none"></path></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/eurl-arthur-richard-5774a4385" target="_blank" rel="noopener" aria-label="LinkedIn" style="display:grid;place-items:center;width:48px;height:48px;border:1px solid rgba(255,255,255,.28);color:var(--blanc)" style-hover="background:var(--rouge);border-color:var(--rouge)">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:19px;height:19px"><path d="M6.2 9.3h2.7V19H6.2V9.3zM7.5 4.8a1.6 1.6 0 110 3.2 1.6 1.6 0 010-3.2zM10.7 9.3h2.6v1.3c.5-.8 1.5-1.5 2.9-1.5 2.2 0 3.1 1.4 3.1 3.7V19h-2.7v-5.5c0-1.2-.4-1.9-1.5-1.9-1 0-1.6.7-1.6 1.9V19h-2.8V9.3z"></path></svg>
+        </a>
+        <a href="#" aria-label="Avis Google" style="display:grid;place-items:center;width:48px;height:48px;border:1px solid rgba(255,255,255,.28);font-family:var(--titre);font-weight:700;font-size:20px;color:var(--blanc)" style-hover="background:var(--rouge);border-color:var(--rouge)">G</a>
+      </div>
+    </div>
+
+    <form id="ar-form" novalidate style="display:grid;gap:20px;align-content:start;padding:clamp(24px,3vw,38px);background:rgba(255,255,255,.05);border:1px solid var(--trait-clair)">
+      <div style="font:600 11.5px/1 var(--texte);letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.6)">Demande de devis gratuite</div>
+      <label style="display:grid;gap:8px">
+        <span style="font:500 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.72)">Nom</span>
+        <input type="text" name="nom" placeholder="Votre nom" required style="padding:13px 0;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.3);color:var(--blanc);outline:none" style-focus="border-color:var(--rouge)">
+      </label>
+      <label style="display:grid;gap:8px">
+        <span style="font:500 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.72)">Téléphone</span>
+        <input type="tel" name="tel" placeholder="06 71 52 62 69" required style="padding:13px 0;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.3);color:var(--blanc);outline:none" style-focus="border-color:var(--rouge)">
+      </label>
+      <label style="display:grid;gap:8px">
+        <span style="font:500 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.72)">Type de travaux</span>
+        <select name="type" style="padding:13px 0;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.3);color:var(--blanc);outline:none" style-focus="border-color:var(--rouge)">
+          <option style="color:#111">Peinture intérieure</option>
+          <option style="color:#111">Peinture extérieure / ravalement</option>
+          <option style="color:#111">Revêtements sols et murs</option>
+          <option style="color:#111">Plâtrerie sèche</option>
+          <option style="color:#111">Isolation intérieure</option>
+          <option style="color:#111">Salle de bain clé en main</option>
+          <option style="color:#111">Cover Styl</option>
+          <option style="color:#111">Autre / je ne sais pas encore</option>
+        </select>
+      </label>
+      <label style="display:grid;gap:8px">
+        <span style="font:500 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.72)">Message</span>
+        <textarea name="message" rows="4" placeholder="Surface, délais, contraintes…" style="padding:13px 0;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.3);color:var(--blanc);outline:none;resize:vertical" style-focus="border-color:var(--rouge)"></textarea>
+      </label>
+      <button type="submit" style="display:inline-flex;align-items:center;justify-content:center;gap:14px;padding:18px 26px;border:0;background:var(--rouge);font:600 13px/1 var(--texte);letter-spacing:.15em;text-transform:uppercase;color:var(--blanc);cursor:pointer" style-hover="background:var(--blanc);color:var(--noir)">
+        <span>Envoyer ma demande</span>
+        <span style="font-family:var(--titre);font-size:17px;line-height:1">&#8594;</span>
+      </button>
+      <div id="ar-form-ok" role="status" style="display:none;padding:14px 16px;background:rgba(255,255,255,.1);border-left:3px solid var(--rouge);font-size:13.5px;font-weight:300;color:rgba(255,255,255,.85)">Maquette : formulaire non connecté. Le message serait envoyé à contact.entreprise.richard@gmail.com.</div>
+    </form>
+  </div>
+
+  <footer style="position:relative;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;margin-top:clamp(48px,6vw,88px);padding-top:26px;border-top:1px solid var(--trait-clair)">
+    <div style="display:flex;align-items:center;gap:16px">
+      <img src="assets/logo-ar-blanc.png" alt="Entreprise Arthur Richard" style="display:block;height:56px;width:auto">
+      <span style="font:400 12px/1.5 var(--texte);letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5)">Entreprise Arthur Richard<br>Travaux de second œuvre</span>
+    </div>
+    <div style="font:400 12px/1.5 var(--texte);color:rgba(255,255,255,.42)">© 2026 · Mentions légales · Maquette</div>
+  </footer>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;hero&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;enseigne&quot;,&quot;split&quot;,&quot;centre&quot;],&quot;default&quot;:&quot;enseigne&quot;,&quot;tsType&quot;:&quot;'enseigne' | 'split' | 'centre'&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;avantApres&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Réalisations&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const hero = this.props.hero ?? 'enseigne';
+    return {
+      avantApres: this.props.avantApres ?? true,
+      heroEnseigne: hero === 'enseigne',
+      heroSplit: hero === 'split',
+      heroCentre: hero === 'centre'
+    };
+  }
+
+  componentDidMount() {
+    this.bind();
+  }
+
+  componentDidUpdate() {
+    this.bind();
+  }
+
+  bind() {
+    const gal = document.getElementById('galerie');
+    if (gal && !gal.dataset.bound) {
+      gal.dataset.bound = '1';
+      gal.addEventListener('click', (e) => {
+        const chip = e.target.closest('[data-chip]');
+        if (!chip) return;
+        const cat = chip.dataset.chip;
+        gal.querySelectorAll('[data-chip]').forEach((b) => {
+          const on = b === chip;
+          b.style.background = on ? 'var(--noir)' : 'transparent';
+          b.style.borderColor = on ? 'var(--noir)' : 'var(--trait-sombre)';
+          b.style.color = on ? 'var(--blanc)' : 'var(--gris-fonce)';
+        });
+        gal.querySelectorAll('[data-cat]').forEach((f) => {
+          f.style.display = cat === 'tous' || f.dataset.cat === cat ? '' : 'none';
+        });
+      });
+    }
+
+    const range = document.getElementById('ar-ba-range');
+    if (range && !range.dataset.bound) {
+      range.dataset.bound = '1';
+      const sync = () => {
+        const v = Number(range.value);
+        const after = document.getElementById('ar-ba-after');
+        const line = document.getElementById('ar-ba-line');
+        if (after) after.style.clipPath = 'inset(0 ' + (100 - v) + '% 0 0)';
+        if (line) line.style.left = v + '%';
+      };
+      range.addEventListener('input', sync);
+      sync();
+    }
+
+    const form = document.getElementById('ar-form');
+    if (form && !form.dataset.bound) {
+      form.dataset.bound = '1';
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const ok = document.getElementById('ar-form-ok');
+        if (ok) ok.style.display = 'block';
+      });
+    }
+  }
+}
+</script>
+</body>
+</html>
