@@ -375,8 +375,8 @@ details[open] span[data-plus]{transform:rotate(45deg)}
 
   <sc-if value="{{ avantApres }}" hint-placeholder-val="{{ true }}">
     <div id="ar-ba" style="position:relative;aspect-ratio:16/9;min-height:260px;margin-bottom:clamp(34px,4vw,52px);background:#e6e2dd;overflow:hidden;user-select:none">
-      <div style="position:absolute;inset:0"><image-slot id="ba-avant" shape="rect" placeholder="Photo AVANT"></image-slot></div>
-      <div id="ar-ba-after" style="position:absolute;inset:0;clip-path:inset(0 50% 0 0)"><image-slot id="ba-apres" shape="rect" placeholder="Photo APRÈS"></image-slot></div>
+      <div style="position:absolute;inset:0"><img id="ba-avant" src="assets/avant.jpg" alt="Chantier avant travaux — Entreprise Arthur Richard" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+      <div id="ar-ba-after" style="position:absolute;inset:0;clip-path:inset(0 50% 0 0)"><img id="ba-apres" src="assets/apres.jpg" alt="Chantier après travaux — Entreprise Arthur Richard" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
       <span style="position:absolute;left:16px;top:16px;padding:8px 13px;background:rgba(15,15,14,.72);font:600 10.5px/1 var(--texte);letter-spacing:.2em;text-transform:uppercase;color:#fff;pointer-events:none">Avant</span>
       <span style="position:absolute;right:16px;top:16px;padding:8px 13px;background:var(--rouge);font:600 10.5px/1 var(--texte);letter-spacing:.2em;text-transform:uppercase;color:#fff;pointer-events:none">Après</span>
       <span id="ar-ba-line" style="position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--blanc);box-shadow:0 0 0 1px rgba(0,0,0,.15);pointer-events:none"></span>
