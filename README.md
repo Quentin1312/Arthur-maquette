@@ -4,29 +4,27 @@ Maquette d'un site vitrine pour Arthur Richard, artisan peintre et rénovateur (
 
 ## Contenu
 
-`site/` — **le site complet à publier** : une page d'accueil + 7 pages de service (une par prestation, pour le SEO).
+**Le site à publier** (à la racine du dépôt) : une page d'accueil + 5 pages de service (une par prestation, pour le SEO).
 
 ```
-site/index.html                              accueil one-page
-site/service-peinture-interieure.html        01
-site/service-peinture-exterieure-ravalement.html   02
-site/service-revetements-sols-murs.html      03
-site/service-platrerie-seche.html            04
-site/service-isolation-interieure.html       05
-site/service-salle-de-bain-cle-en-main.html  06
-site/service-cover-styl.html                 07
-site/assets/                                 logos et photo d'enseigne
+index.html                              accueil one-page
+service-peinture-interieure.html        01  Peinture intérieure & extérieure / ravalement
+service-revetements-sols-murs.html      02  Pose de revêtements sols et murs
+service-platrerie-seche.html            03  Plâtrerie sèche & isolation intérieure
+service-salle-de-bain-cle-en-main.html  04  Salle de bain clé en main
+service-cover-styl.html                 05  Covering & rénovation de surfaces (service signature)
+assets/                                 logos et photo d'enseigne
 ```
 
-À la racine : les mêmes pages en fichiers source éditables (`.dc.html`).
+Les mêmes pages existent en fichiers source éditables (`.dc.html`) pour l'éditeur Claude Design.
 
 ## Sections de l'accueil
 
-Hero plein écran (3 variantes possibles) · Services 01→07, cliquables vers leur page · Section Cover Styl dédiée · Présentation entreprise · Réalisations (avant/après + galerie filtrable) · Zone d'intervention (carte) · FAQ devis · Témoignages · Contact + formulaire de devis.
+Hero plein écran (3 variantes possibles) · Services 01→05, cliquables vers leur page · Section Covering dédiée · Présentation entreprise · Réalisations (avant/après + galerie filtrable) · Zone d'intervention (carte) · FAQ devis · Témoignages · Contact + formulaire de devis.
 
 ## Chaque page de service contient
 
-Fil d'ariane, titre + numéro, contenu de la prestation en 5 points, déroulé du chantier en 4 étapes, 3 photos de chantier, bloc devis, liens vers les autres services. Balise `title`, `meta description` et données structurées `Service` / `LocalBusiness` renseignées pour le référencement.
+Fil d'ariane, titre + numéro, contenu de la prestation en plusieurs points, déroulé du chantier en 4 étapes, 3 photos de chantier, bloc devis, liens vers les autres services. Balise `title`, `meta description` et données structurées `Service` / `LocalBusiness` renseignées pour le référencement.
 
 ## Personnalisation express
 
