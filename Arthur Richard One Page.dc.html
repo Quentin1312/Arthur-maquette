@@ -251,83 +251,201 @@ details[open] span[data-plus]{transform:rotate(45deg)}
         <span style="display:block;width:34px;height:3px;background:var(--rouge);transform:skewX(-24deg)"></span>
         <span style="font:600 11.5px/1 var(--texte);letter-spacing:.24em;text-transform:uppercase;color:var(--rouge)">Réalisations</span>
       </div>
-      <h2 style="margin:0;font-family:var(--titre);font-weight:700;font-size:clamp(34px,5.4vw,72px);line-height:.94;text-transform:uppercase;color:var(--noir)">Avant / après</h2>
+      <h2 style="margin:0;font-family:var(--titre);font-weight:700;font-size:clamp(34px,5.4vw,72px);line-height:.94;text-transform:uppercase;color:var(--noir)">Nos chantiers</h2>
     </div>
-    <p style="margin:0;max-width:36ch;font-size:15px;font-weight:300;line-height:1.7;color:var(--gris)">Un aperçu de chantiers réalisés dans la région. Choisissez un service pour filtrer les réalisations correspondantes.</p>
+    <p style="margin:0;max-width:38ch;font-size:15px;font-weight:300;line-height:1.7;color:var(--gris)">Un aperçu de nos réalisations récentes. Choisissez un service pour filtrer les chantiers correspondants.</p>
   </div>
-
-  <sc-if value="{{ avantApres }}" hint-placeholder-val="{{ true }}">
-    <div id="ar-ba" style="position:relative;aspect-ratio:16/9;min-height:260px;margin-bottom:clamp(34px,4vw,52px);background:#e6e2dd;overflow:hidden;user-select:none">
-      <div style="position:absolute;inset:0"><image-slot id="ba-avant" shape="rect" placeholder="Photo AVANT"></image-slot></div>
-      <div id="ar-ba-after" style="position:absolute;inset:0;clip-path:inset(0 50% 0 0)"><image-slot id="ba-apres" shape="rect" placeholder="Photo APRÈS"></image-slot></div>
-      <span style="position:absolute;left:16px;top:16px;padding:8px 13px;background:rgba(15,15,14,.72);font:600 10.5px/1 var(--texte);letter-spacing:.2em;text-transform:uppercase;color:#fff;pointer-events:none">Avant</span>
-      <span style="position:absolute;right:16px;top:16px;padding:8px 13px;background:var(--rouge);font:600 10.5px/1 var(--texte);letter-spacing:.2em;text-transform:uppercase;color:#fff;pointer-events:none">Après</span>
-      <div id="ar-ba-line" style="position:absolute;top:0;bottom:0;left:50%;width:2px;margin-left:-1px;background:var(--blanc);box-shadow:0 0 0 1px rgba(0,0,0,.15);pointer-events:none">
-        <span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:var(--rouge);box-shadow:0 3px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;color:#fff;font:700 15px/1 var(--texte);letter-spacing:2px">‹›</span>
-      </div>
-      <input id="ar-ba-range" type="range" min="0" max="100" value="50" aria-label="Comparer avant et après" style="position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize">
-    </div>
-  </sc-if>
 
   <div id="galerie">
     <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:clamp(20px,2.6vw,30px)">
-      <button type="button" data-chip="tous" style="padding:12px 18px;border:1px solid var(--noir);background:var(--noir);font:600 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--blanc);cursor:pointer">Tous</button>
-      <button type="button" data-chip="peinture" style="padding:12px 18px;border:1px solid var(--trait-sombre);background:transparent;font:600 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--gris-fonce);cursor:pointer">Peinture int. / ext.</button>
-      <button type="button" data-chip="revetements" style="padding:12px 18px;border:1px solid var(--trait-sombre);background:transparent;font:600 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--gris-fonce);cursor:pointer">Revêtements sols / murs</button>
-      <button type="button" data-chip="platrerie" style="padding:12px 18px;border:1px solid var(--trait-sombre);background:transparent;font:600 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--gris-fonce);cursor:pointer">Plâtrerie / isolation</button>
-      <button type="button" data-chip="sdb" style="padding:12px 18px;border:1px solid var(--trait-sombre);background:transparent;font:600 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--gris-fonce);cursor:pointer">Salle de bain</button>
-      <button type="button" data-chip="covering" style="padding:12px 18px;border:1px solid var(--trait-sombre);background:transparent;font:600 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--gris-fonce);cursor:pointer">Covering</button>
+      <button type="button" data-chip="tous" style="padding:12px 18px;border:1px solid var(--noir);background:var(--noir);color:var(--blanc);font:600 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;cursor:pointer">Tous</button>
+      <button type="button" data-chip="peinture" style="padding:12px 18px;border:1px solid var(--trait-sombre);background:transparent;color:var(--gris-fonce);font:600 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;cursor:pointer">Peinture int. &amp; ext.</button>
+      <button type="button" data-chip="platrerie" style="padding:12px 18px;border:1px solid var(--trait-sombre);background:transparent;color:var(--gris-fonce);font:600 11.5px/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;cursor:pointer">Plâtrerie &amp; isolation</button>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:clamp(14px,1.6vw,22px)">
       <figure data-cat="peinture" style="margin:0">
-        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd"><image-slot id="g1" shape="rect" placeholder="Photo chantier"></image-slot></div>
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd;overflow:hidden">
+          <img src="assets/realisations/peinture/img-6452.jpg" alt="Salon rénové" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        </div>
         <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
-          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Séjour, Nevers</span>
-          <span style="font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Peinture</span>
-        </figcaption>
-      </figure>
-      <figure data-cat="covering" style="margin:0">
-        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd"><image-slot id="g2" shape="rect" placeholder="Photo chantier"></image-slot></div>
-        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
-          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Cuisine relookée</span>
-          <span style="font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Covering</span>
-        </figcaption>
-      </figure>
-      <figure data-cat="sdb" style="margin:0">
-        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd"><image-slot id="g3" shape="rect" placeholder="Photo chantier"></image-slot></div>
-        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
-          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Salle de bain complète</span>
-          <span style="font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Salle de bain</span>
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Salon rénové</span>
+          <span style="flex:none;font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Peinture</span>
         </figcaption>
       </figure>
       <figure data-cat="peinture" style="margin:0">
-        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd"><image-slot id="g4" shape="rect" placeholder="Photo chantier"></image-slot></div>
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd;overflow:hidden">
+          <img src="assets/realisations/peinture/img-6456.jpg" alt="Chambre terracotta" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        </div>
         <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
-          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Façade pavillon</span>
-          <span style="font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Peinture ext.</span>
-        </figcaption>
-      </figure>
-      <figure data-cat="revetements" style="margin:0">
-        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd"><image-slot id="g5" shape="rect" placeholder="Photo chantier"></image-slot></div>
-        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
-          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Sol stratifié</span>
-          <span style="font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Revêtements</span>
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Chambre terracotta</span>
+          <span style="flex:none;font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Peinture</span>
         </figcaption>
       </figure>
       <figure data-cat="peinture" style="margin:0">
-        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd"><image-slot id="g6" shape="rect" placeholder="Photo chantier"></image-slot></div>
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd;overflow:hidden">
+          <img src="assets/realisations/peinture/img-0144.jpg" alt="Séjour &amp; soubassement" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Séjour &amp; soubassement</span>
+          <span style="flex:none;font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Peinture</span>
+        </figcaption>
+      </figure>
+      <figure data-cat="peinture" style="margin:0">
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd;overflow:hidden">
+          <img src="assets/realisations/peinture/img-1348.jpg" alt="Cage d'escalier" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        </div>
         <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
           <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Cage d'escalier</span>
-          <span style="font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Peinture</span>
+          <span style="flex:none;font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Peinture</span>
+        </figcaption>
+      </figure>
+      <figure data-cat="peinture" style="margin:0">
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd;overflow:hidden">
+          <img src="assets/realisations/peinture/img-8734.jpg" alt="Façade avant nettoyage" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+          <span style="position:absolute;left:12px;top:12px;padding:6px 11px;background:rgba(15,15,14,.72);font:600 10px/1 var(--texte);letter-spacing:.2em;text-transform:uppercase;color:#fff">Avant</span>
+        </div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Façade avant nettoyage</span>
+          <span style="flex:none;font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Peinture</span>
+        </figcaption>
+      </figure>
+      <figure data-cat="peinture" style="margin:0">
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd;overflow:hidden">
+          <img src="assets/realisations/peinture/img-0013.jpg" alt="Façade ravalée" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+          <span style="position:absolute;left:12px;top:12px;padding:6px 11px;background:var(--rouge);font:600 10px/1 var(--texte);letter-spacing:.2em;text-transform:uppercase;color:#fff">Après</span>
+        </div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Façade ravalée</span>
+          <span style="flex:none;font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Peinture</span>
+        </figcaption>
+      </figure>
+      <figure data-cat="peinture" style="margin:0">
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd;overflow:hidden">
+          <img src="assets/realisations/peinture/img-5316.jpg" alt="Agencement pharmacie" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Agencement pharmacie</span>
+          <span style="flex:none;font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Peinture</span>
+        </figcaption>
+      </figure>
+      <figure data-cat="peinture" style="margin:0">
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd;overflow:hidden">
+          <img src="assets/realisations/peinture/img-5309.jpg" alt="Pharmacie — mise en peinture" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Pharmacie — mise en peinture</span>
+          <span style="flex:none;font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Peinture</span>
+        </figcaption>
+      </figure>
+      <figure data-cat="peinture" style="margin:0">
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd;overflow:hidden">
+          <img src="assets/realisations/peinture/img-0261.jpg" alt="Peinture sous charpente" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Peinture sous charpente</span>
+          <span style="flex:none;font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Peinture</span>
+        </figcaption>
+      </figure>
+      <figure data-cat="peinture" style="margin:0">
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd;overflow:hidden">
+          <img src="assets/realisations/peinture/76ba5b7a-8442-4a13-83e2-147758e28b29.jpg" alt="Chantier grande hauteur" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Chantier grande hauteur</span>
+          <span style="flex:none;font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Peinture</span>
+        </figcaption>
+      </figure>
+      <figure data-cat="peinture" style="margin:0">
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd;overflow:hidden">
+          <img src="assets/realisations/peinture/img-5278.jpg" alt="Peinture intérieure" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Peinture intérieure</span>
+          <span style="flex:none;font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Peinture</span>
+        </figcaption>
+      </figure>
+      <figure data-cat="peinture" style="margin:0">
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd;overflow:hidden">
+          <img src="assets/realisations/peinture/img-1343.jpg" alt="Rénovation en cours" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Rénovation en cours</span>
+          <span style="flex:none;font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Peinture</span>
+        </figcaption>
+      </figure>
+      <figure data-cat="peinture" style="margin:0">
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd;overflow:hidden">
+          <img src="assets/realisations/peinture/img-1344.jpg" alt="Préparation &amp; enduits" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Préparation &amp; enduits</span>
+          <span style="flex:none;font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Peinture</span>
         </figcaption>
       </figure>
       <figure data-cat="platrerie" style="margin:0">
-        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd"><image-slot id="g7" shape="rect" placeholder="Photo chantier"></image-slot></div>
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd;overflow:hidden">
+          <img src="assets/realisations/platrerie/img-4313.jpg" alt="Plâtrerie sèche" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        </div>
         <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
-          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Cloison &amp; doublage</span>
-          <span style="font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Plâtrerie / isolation</span>
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Plâtrerie sèche</span>
+          <span style="flex:none;font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Plâtrerie</span>
         </figcaption>
       </figure>
+      <figure data-cat="platrerie" style="margin:0">
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd;overflow:hidden">
+          <img src="assets/realisations/platrerie/img-5280.jpg" alt="Cloison &amp; doublage" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Cloison &amp; doublage</span>
+          <span style="flex:none;font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Plâtrerie</span>
+        </figcaption>
+      </figure>
+      <figure data-cat="platrerie" style="margin:0">
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd;overflow:hidden">
+          <img src="assets/realisations/platrerie/img-5856-1.jpg" alt="Faux plafond" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Faux plafond</span>
+          <span style="flex:none;font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Plâtrerie</span>
+        </figcaption>
+      </figure>
+      <figure data-cat="platrerie" style="margin:0">
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd;overflow:hidden">
+          <img src="assets/realisations/platrerie/img-7733.jpg" alt="Isolation intérieure" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Isolation intérieure</span>
+          <span style="flex:none;font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Plâtrerie</span>
+        </figcaption>
+      </figure>
+      <figure data-cat="platrerie" style="margin:0">
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd;overflow:hidden">
+          <img src="assets/realisations/platrerie/img-8014.jpg" alt="Doublage placo" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Doublage placo</span>
+          <span style="flex:none;font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Plâtrerie</span>
+        </figcaption>
+      </figure>
+      <figure data-cat="platrerie" style="margin:0">
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd;overflow:hidden">
+          <img src="assets/realisations/platrerie/img-8016.jpg" alt="Plaques de plâtre" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Plaques de plâtre</span>
+          <span style="flex:none;font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Plâtrerie</span>
+        </figcaption>
+      </figure>
+      <figure data-cat="platrerie" style="margin:0">
+        <div style="position:relative;aspect-ratio:3/2;background:#e6e2dd;overflow:hidden">
+          <img src="assets/realisations/platrerie/img-1345.jpg" alt="Finitions plâtrerie" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <figcaption style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 2px 0">
+          <span style="font-family:var(--titre);font-weight:600;font-size:19px;text-transform:uppercase;color:var(--noir)">Finitions plâtrerie</span>
+          <span style="flex:none;font:500 10.5px/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)">Plâtrerie</span>
+        </figcaption>
+      </figure>
+
     </div>
   </div>
 </section>
