@@ -720,6 +720,11 @@ class Component extends DCLogic {
 
   componentDidMount() {
     this.bind();
+    if (!this._hashDone && window.location.hash) {
+      this._hashDone = true;
+      const target = window.location.hash;
+      setTimeout(() => { const el = document.querySelector(target); if (el) el.scrollIntoView({ block: 'start' }); }, 90);
+    }
   }
 
   componentDidUpdate() {
