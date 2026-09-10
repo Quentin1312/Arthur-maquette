@@ -575,7 +575,7 @@ details[open] span[data-plus]{transform:rotate(45deg)}
       </div>
     </div>
 
-    <form id="ar-form" novalidate style="display:grid;gap:20px;align-content:start;padding:clamp(24px,3vw,38px);background:rgba(255,255,255,.05);border:1px solid var(--trait-clair)">
+    <form id="ar-form" action="mailto:contact.entreprise.richard@gmail.com" method="post" enctype="text/plain" style="display:grid;gap:20px;align-content:start;padding:clamp(24px,3vw,38px);background:rgba(255,255,255,.05);border:1px solid var(--trait-clair)">
       <div style="font:600 11.5px/1 var(--texte);letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.6)">Demande de devis gratuite</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:20px">
         <label style="display:grid;gap:8px">
@@ -642,7 +642,7 @@ details[open] span[data-plus]{transform:rotate(45deg)}
         <span>Envoyer ma demande</span>
         <span style="font-family:var(--titre);font-size:17px;line-height:1">&#8594;</span>
       </button>
-      <div id="ar-form-ok" role="status" style="display:none;padding:14px 16px;background:rgba(255,255,255,.1);border-left:3px solid var(--rouge);font-size:13.5px;font-weight:300;color:rgba(255,255,255,.85)">Maquette : formulaire non connecté. Le message serait envoyé à contact.entreprise.richard@gmail.com.</div>
+      <div id="ar-form-ok" role="status" style="display:none;padding:14px 16px;background:rgba(255,255,255,.1);border-left:3px solid var(--rouge);font-size:13.5px;font-weight:300;color:rgba(255,255,255,.85)">Votre application mail va s'ouvrir avec la demande pré-remplie à contact.entreprise.richard@gmail.com.</div>
     </form>
   </div>
 
@@ -731,8 +731,29 @@ class Component extends DCLogic {
       form.dataset.bound = '1';
       form.addEventListener('submit', (e) => {
         e.preventDefault();
+        if (!form.reportValidity()) return;
+        const data = new FormData(form);
+        const lines = [
+          'Nouvelle demande de devis depuis le site',
+          '',
+          'Profil : ' + (data.get('profil') || ''),
+          'Civilité : ' + (data.get('civilite') || ''),
+          'Prénom : ' + (data.get('prenom') || ''),
+          'Nom : ' + (data.get('nom') || ''),
+          'Téléphone : ' + (data.get('tel') || ''),
+          'Email : ' + (data.get('email') || ''),
+          'Ville : ' + (data.get('ville') || ''),
+          'Code postal : ' + (data.get('cp') || ''),
+          'Type de travaux : ' + (data.get('type') || ''),
+          '',
+          'Message :',
+          String(data.get('message') || '')
+        ];
+        const subject = encodeURIComponent('Demande de devis - Entreprise Arthur Richard');
+        const body = encodeURIComponent(lines.join('\n'));
         const ok = document.getElementById('ar-form-ok');
         if (ok) ok.style.display = 'block';
+        window.location.href = 'mailto:contact.entreprise.richard@gmail.com?subject=' + subject + '&body=' + body;
       });
     }
   }
