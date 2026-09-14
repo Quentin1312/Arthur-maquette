@@ -192,13 +192,30 @@
   }
 
   #services a[href^="service-"] {
-    grid-template-columns: 38px 1fr !important;
-    gap: 12px !important;
-    padding: 21px 0 !important;
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+    padding: 20px 0 !important;
   }
 
   #services a[href^="service-"] > span:last-child {
     display: none !important;
+  }
+
+  /* titre du service (items normaux) */
+  #services a[href^="service-"] > span:first-child > span:first-child {
+    font-size: 22px !important;
+    line-height: 1.12 !important;
+  }
+
+  /* description du service (items normaux) */
+  #services a[href^="service-"] > span:first-child > span:last-child {
+    font-size: 13.5px !important;
+    line-height: 1.55 !important;
+  }
+
+  /* bloc covering (le 1er enfant est le fond absolu) */
+  #services a[href="service-cover-styl.html"] > span:nth-child(2) > span:first-child {
+    font-size: 26px !important;
   }
 
   #services a[href="service-cover-styl.html"] {
