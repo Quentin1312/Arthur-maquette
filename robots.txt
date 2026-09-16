@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /mentions-legales.html
 
-Sitemap: https://entreprise-arthurrichard.com/sitemap.xml
+Sitemap: https://entreprise-arthur-richard.fr/sitemap.xml
