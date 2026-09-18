@@ -283,11 +283,11 @@ class Component extends DCLogic {
 }
 </script>
 <!-- Bandeau cookies + Google Analytics conditionnel -->
-<div id="ar-cookie" hidden style="position:fixed;left:0;right:0;bottom:0;z-index:9999;background:rgba(26,26,25,.97);color:rgba(255,255,255,.9);padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-family:'Inter Tight','Helvetica Neue',sans-serif;font-size:13px;line-height:1.4;border-top:1px solid rgba(255,255,255,.12)">
+<div id="ar-cookie" hidden style="position:fixed;left:0;right:0;bottom:0;z-index:9999;background:rgba(26,26,25,.97);color:rgba(255,255,255,.9);padding:14px 16px calc(16px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-family:'Inter Tight','Helvetica Neue',sans-serif;font-size:13px;line-height:1.4;border-top:1px solid rgba(255,255,255,.12)">
   <span style="max-width:62ch">Ce site utilise des cookies de mesure d'audience. <a href="mentions-legales.html" style="color:#ec3b34;text-decoration:underline">En savoir plus</a></span>
   <span style="display:flex;gap:8px;flex-shrink:0">
-    <button id="ar-cookie-accept" type="button" style="cursor:pointer;border:0;border-radius:6px;padding:7px 16px;background:#d8202a;color:#fff;font:600 12px/1 'Inter Tight',sans-serif">Accepter</button>
-    <button id="ar-cookie-refuse" type="button" style="cursor:pointer;border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:7px 16px;background:transparent;color:#fff;font:600 12px/1 'Inter Tight',sans-serif">Refuser</button>
+    <button id="ar-cookie-accept" type="button" style="cursor:pointer;border:0;border-radius:6px;padding:11px 20px;background:#d8202a;color:#fff;font:600 12px/1 'Inter Tight',sans-serif">Accepter</button>
+    <button id="ar-cookie-refuse" type="button" style="cursor:pointer;border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:11px 20px;background:transparent;color:#fff;font:600 12px/1 'Inter Tight',sans-serif">Refuser</button>
   </span>
 </div>
 <script>
