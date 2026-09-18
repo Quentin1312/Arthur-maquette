@@ -72,12 +72,12 @@ footer{background:var(--noir);color:rgba(255,255,255,.6);padding:26px var(--cote
   © 2026 EURL Arthur Richard — Tous droits réservés · <a href="index.html" style="color:rgba(255,255,255,.75)">Accueil</a>
 </footer>
 <!-- Bandeau cookies + Google Analytics conditionnel -->
-<div id="ar-cookie" hidden style="position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;max-width:560px;margin:0 auto;background:#1a1a19;color:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:18px 20px;box-shadow:0 12px 40px rgba(0,0,0,.35);font-family:'Inter Tight','Helvetica Neue',sans-serif;font-size:14px;line-height:1.6">
-  <p style="margin:0 0 14px">Nous utilisons des cookies de mesure d'audience (Google Analytics) pour améliorer notre site. Vous pouvez accepter ou refuser. <a href="mentions-legales.html" style="color:#ec3b34;text-decoration:underline">En savoir plus</a>.</p>
-  <div style="display:flex;gap:10px;flex-wrap:wrap">
-    <button id="ar-cookie-accept" type="button" style="cursor:pointer;border:0;border-radius:8px;padding:10px 20px;background:#d8202a;color:#fff;font:600 13px/1 'Inter Tight',sans-serif;letter-spacing:.02em">Accepter</button>
-    <button id="ar-cookie-refuse" type="button" style="cursor:pointer;border:1px solid rgba(255,255,255,.3);border-radius:8px;padding:10px 20px;background:transparent;color:#fff;font:600 13px/1 'Inter Tight',sans-serif;letter-spacing:.02em">Refuser</button>
-  </div>
+<div id="ar-cookie" hidden style="position:fixed;left:0;right:0;bottom:0;z-index:9999;background:rgba(26,26,25,.97);color:rgba(255,255,255,.9);padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-family:'Inter Tight','Helvetica Neue',sans-serif;font-size:13px;line-height:1.4;border-top:1px solid rgba(255,255,255,.12)">
+  <span style="max-width:62ch">Ce site utilise des cookies de mesure d'audience. <a href="mentions-legales.html" style="color:#ec3b34;text-decoration:underline">En savoir plus</a></span>
+  <span style="display:flex;gap:8px;flex-shrink:0">
+    <button id="ar-cookie-accept" type="button" style="cursor:pointer;border:0;border-radius:6px;padding:7px 16px;background:#d8202a;color:#fff;font:600 12px/1 'Inter Tight',sans-serif">Accepter</button>
+    <button id="ar-cookie-refuse" type="button" style="cursor:pointer;border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:7px 16px;background:transparent;color:#fff;font:600 12px/1 'Inter Tight',sans-serif">Refuser</button>
+  </span>
 </div>
 <script>
 (function(){
@@ -99,5 +99,6 @@ footer{background:var(--noir);color:rgba(255,255,255,.6);padding:26px var(--cote
   if(r) r.addEventListener('click', function(){ set('denied'); });
 })();
 </script>
+
 </body>
 </html>
