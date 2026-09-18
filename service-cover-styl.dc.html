@@ -9,14 +9,6 @@
 <link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png">
 <link rel="manifest" href="assets/favicon/site.webmanifest">
 <script src="./support.js"></script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-E9RN8EYWVO"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-E9RN8EYWVO');
-</script>
 </head>
 <body>
 <x-dc>
@@ -436,6 +428,34 @@ class Component extends DCLogic {
     });
   }
 }
+</script>
+<!-- Bandeau cookies + Google Analytics conditionnel -->
+<div id="ar-cookie" hidden style="position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;max-width:560px;margin:0 auto;background:#1a1a19;color:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:18px 20px;box-shadow:0 12px 40px rgba(0,0,0,.35);font-family:'Inter Tight','Helvetica Neue',sans-serif;font-size:14px;line-height:1.6">
+  <p style="margin:0 0 14px">Nous utilisons des cookies de mesure d'audience (Google Analytics) pour améliorer notre site. Vous pouvez accepter ou refuser. <a href="mentions-legales.html" style="color:#ec3b34;text-decoration:underline">En savoir plus</a>.</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap">
+    <button id="ar-cookie-accept" type="button" style="cursor:pointer;border:0;border-radius:8px;padding:10px 20px;background:#d8202a;color:#fff;font:600 13px/1 'Inter Tight',sans-serif;letter-spacing:.02em">Accepter</button>
+    <button id="ar-cookie-refuse" type="button" style="cursor:pointer;border:1px solid rgba(255,255,255,.3);border-radius:8px;padding:10px 20px;background:transparent;color:#fff;font:600 13px/1 'Inter Tight',sans-serif;letter-spacing:.02em">Refuser</button>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY='ar-consent', ID='G-E9RN8EYWVO';
+  function loadGA(){
+    if(window.__gaLoaded)return; window.__gaLoaded=true;
+    var s=document.createElement('script'); s.async=true;
+    s.src='https://www.googletagmanager.com/gtag/js?id='+ID; document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[]; function gtag(){dataLayer.push(arguments);} window.gtag=gtag;
+    gtag('js', new Date()); gtag('config', ID, {anonymize_ip:true});
+  }
+  var choice=null; try{choice=localStorage.getItem(KEY);}catch(e){}
+  var banner=document.getElementById('ar-cookie');
+  if(choice==='granted'){ loadGA(); }
+  else if(choice!=='denied'){ if(banner) banner.hidden=false; }
+  function set(v){ try{localStorage.setItem(KEY,v);}catch(e){} if(banner) banner.hidden=true; if(v==='granted') loadGA(); }
+  var a=document.getElementById('ar-cookie-accept'), r=document.getElementById('ar-cookie-refuse');
+  if(a) a.addEventListener('click', function(){ set('granted'); });
+  if(r) r.addEventListener('click', function(){ set('denied'); });
+})();
 </script>
 </body>
 </html>
