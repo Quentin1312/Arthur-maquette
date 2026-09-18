@@ -72,7 +72,7 @@ footer{background:var(--noir);color:rgba(255,255,255,.6);padding:26px var(--cote
   © 2026 EURL Arthur Richard — Tous droits réservés · <a href="index.html" style="color:rgba(255,255,255,.75)">Accueil</a>
 </footer>
 <!-- Bandeau cookies + Google Analytics conditionnel -->
-<div id="ar-cookie" hidden style="position:fixed;left:0;right:0;bottom:0;z-index:9999;background:rgba(26,26,25,.97);color:rgba(255,255,255,.9);padding:14px 16px calc(16px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-family:'Inter Tight','Helvetica Neue',sans-serif;font-size:13px;line-height:1.4;border-top:1px solid rgba(255,255,255,.12)">
+<div id="ar-cookie" style="display:none;position:fixed;left:0;right:0;bottom:0;z-index:9999;background:rgba(26,26,25,.97);color:rgba(255,255,255,.9);padding:14px 16px calc(16px + env(safe-area-inset-bottom));align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-family:'Inter Tight','Helvetica Neue',sans-serif;font-size:13px;line-height:1.4;border-top:1px solid rgba(255,255,255,.12)">
   <span style="max-width:62ch">Ce site utilise des cookies de mesure d'audience. <a href="mentions-legales.html" style="color:#ec3b34;text-decoration:underline">En savoir plus</a></span>
   <span style="display:flex;gap:8px;flex-shrink:0">
     <button id="ar-cookie-accept" type="button" style="cursor:pointer;border:0;border-radius:6px;padding:11px 20px;background:#d8202a;color:#fff;font:600 12px/1 'Inter Tight',sans-serif">Accepter</button>
@@ -89,16 +89,19 @@ footer{background:var(--noir);color:rgba(255,255,255,.6);padding:26px var(--cote
     window.dataLayer=window.dataLayer||[]; function gtag(){dataLayer.push(arguments);} window.gtag=gtag;
     gtag('js', new Date()); gtag('config', ID, {anonymize_ip:true});
   }
-  var choice=null; try{choice=localStorage.getItem(KEY);}catch(e){}
   var banner=document.getElementById('ar-cookie');
+  function show(){ if(banner) banner.style.display='flex'; }
+  function hide(){ if(banner) banner.style.display='none'; }
+  var choice=null; try{choice=localStorage.getItem(KEY);}catch(e){}
   if(choice==='granted'){ loadGA(); }
-  else if(choice!=='denied'){ if(banner) banner.hidden=false; }
-  function set(v){ try{localStorage.setItem(KEY,v);}catch(e){} if(banner) banner.hidden=true; if(v==='granted') loadGA(); }
+  else if(choice!=='denied'){ show(); }
+  function set(v){ try{localStorage.setItem(KEY,v);}catch(e){} hide(); if(v==='granted') loadGA(); }
   var a=document.getElementById('ar-cookie-accept'), r=document.getElementById('ar-cookie-refuse');
   if(a) a.addEventListener('click', function(){ set('granted'); });
   if(r) r.addEventListener('click', function(){ set('denied'); });
 })();
 </script>
+
 
 </body>
 </html>
